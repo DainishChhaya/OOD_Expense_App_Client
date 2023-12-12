@@ -5,19 +5,22 @@ import "../styles/Login.css"; // Import the CSS file for styling
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [userName, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const handleLogin = async () => {
     try {
-      console.log("Attempting login with email:", email);
+  let data = JSON.stringify({
+    userName,
+    password
+  });
+      console.log("Attempting login with email:", userName);
       console.log("Sending request to /api/auth/login");
-      const response = await fetch("", {
+      const response = await fetch("http://localhost:8080/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ userName, password }),
       });
 
       if (response.ok) {
@@ -58,7 +61,7 @@ const Login = () => {
         <label>Email:</label>
         <input
           type="email"
-          value={email}
+          value={userName}
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
